@@ -51,6 +51,7 @@ def add_header_buttons(app, pagename, templatename, context, doctree):
         "use_edit_page_button",
         "use_repository_button",
     ]
+
     for key in repo_keywords:
         opts[key] = _as_bool(opts.get(key))
 
@@ -63,13 +64,21 @@ def add_header_buttons(app, pagename, templatename, context, doctree):
             )
         repo_buttons = []
         if opts.get("use_repository_button"):
+
+            # Defining repository icon
+            if "github.com/" in repo_url:
+                repo_icon = "fa-github"
+            elif "bitbucket.org/" in repo_url:
+                repo_icon = "fa-bitbucket"
+            elif "gitlab.com/" in repo_url:
+                repo_icon = "fa-gitlab"
             repo_buttons.append(
                 {
                     "type": "link",
                     "url": repo_url,
                     "tooltip": "Source repository",
                     "text": "repository",
-                    "icon": "fab fa-github",
+                    "icon": f"fab {repo_icon}",
                 }
             )
 
